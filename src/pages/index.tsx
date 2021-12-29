@@ -27,7 +27,14 @@ const Home: NextPage = () => {
     },
   ]);
 
+  const voteMutation = trpc.useMutation(["vote-for-pokemon"]);
+
   const voteForHeaviest = (selected: number) => {
+    if (selected === first) {
+      voteMutation.mutate({ votedFor: first, votedAgainst: second });
+    } else {
+      voteMutation.mutate({ votedFor: second, votedAgainst: first });
+    }
     // fire mutation to persist changes
     updateIds(getOptionsForVote());
   };
@@ -73,10 +80,7 @@ const PokemonListing: React.FC<{
 }> = (props) => {
   return (
     <div className="flex flex-col items-center">
-      <img
-        src={props.pokemon.sprites.front_default!}
-        className="w-64 h-64 "
-      />
+      <img src={props.pokemon.sprites.front_default!} className="w-64 h-64 " />
       <div className="text-xl text-center capitalize mt-[-2rem]">
         {props.pokemon.name}
       </div>
