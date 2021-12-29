@@ -5,6 +5,7 @@ import { trpc } from "@/utils/trpc";
 import { getOptionsForVote } from "@/utils/getRandomPokemon";
 import type { inferQueryResponse } from "./api/trpc/[trpc]";
 import Image from "next/image";
+import Link from "next/link";
 
 const btn =
   "inline-flex items-center px-4 py-1 mt-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500";
@@ -66,6 +67,9 @@ const Home: NextPage = () => {
               />
             </>
           )}
+      </div>
+      <div className="absolute bottom-0 w-full text-xl text-center pb-2">
+        <Link href="/results">Results</Link>
       </div>
     </div>
   );
