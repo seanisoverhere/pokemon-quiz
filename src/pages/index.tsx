@@ -41,34 +41,36 @@ const Home: NextPage = () => {
     updateIds(getOptionsForVote());
   };
 
+  const dataLoaded =
+    !firstPokemon.isLoading &&
+    firstPokemon.data &&
+    !secondPokemon.isLoading &&
+    secondPokemon.data;
+
   return (
-    <div className="h-screen w-screen flex flex-col justify-center items-center">
+    <div className="h-screen w-screen flex flex-col justify-between items-center">
       <Head>
         <title>Pokemon Quiz</title>
         <meta name="description" content="Pokemon Quiz App" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="text-2xl text-center">Which Pokémon is Heavier?</div>
-      <div className="border rounded mt-6 p-8 flex justify-between items-center max-w-2xl">
-        {!firstPokemon.isLoading &&
-          firstPokemon.data &&
-          !secondPokemon.isLoading &&
-          secondPokemon.data && (
-            <>
-              <PokemonListing
-                pokemon={firstPokemon.data}
-                vote={() => voteForHeaviest(first)}
-              />
-              <div className="p-8">VS</div>
-              <PokemonListing
-                pokemon={secondPokemon.data}
-                vote={() => voteForHeaviest(second)}
-              />
-            </>
-          )}
-      </div>
-      <div className="absolute bottom-0 w-full text-xl text-center pb-2">
+      <div className="text-2xl text-center pt-8">Which Pokémon is Heavier?</div>
+      {dataLoaded && (
+        <div className="border rounded mt-6 p-8 flex justify-between items-center max-w-2xl">
+          <PokemonListing
+            pokemon={firstPokemon.data}
+            vote={() => voteForHeaviest(first)}
+          />
+          <div className="p-8">VS</div>
+          <PokemonListing
+            pokemon={secondPokemon.data}
+            vote={() => voteForHeaviest(second)}
+          />
+        </div>
+      )}
+      {!dataLoaded && <img src="/svg-loader.svg" className="w-48" />}
+      <div className="w-full text-xl text-center pb-2">
         <Link href="/results">Results</Link>
       </div>
     </div>
