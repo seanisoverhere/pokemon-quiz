@@ -15,6 +15,8 @@ const Home: NextPage = () => {
 
   const [first, second] = ids;
 
+  console.log("hello world");
+
   const firstPokemon = trpc.useQuery([
     "get-pokemon-by-id",
     {
